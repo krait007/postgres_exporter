@@ -18,7 +18,7 @@ func querySettings(ch chan<- prometheus.Metric, server *Server) error {
 	//
 	// NOTE: If you add more vartypes here, you must update the supported
 	// types in normaliseUnit() below
-	query := "SELECT name, setting, COALESCE(unit, ''), short_desc, vartype FROM pg_settings WHERE vartype IN ('bool', 'integer', 'real');"
+	query := "SELECT distinct name, setting, COALESCE(unit, ''), short_desc, vartype FROM pg_settings WHERE vartype IN ('bool', 'integer', 'real');"
 
 	rows, err := server.db.Query(query)
 	if err != nil {
